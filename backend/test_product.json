@@ -1,0 +1,16 @@
+{
+  "nombre": "BERMUDA JEANS",
+  "descripcion": "DE JEANS",
+  "categoria": "Indumentaria",
+  "genero": "Hombre",
+  "temporada": "Verano",
+  "precio": 60000,
+  "precio_lista": 0,
+  "stock": 0,
+  "stock_by_size": {},
+  "tallas": [],
+  "colores": [],
+  "imagenes": ["data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="],
+  "activo": true,
+  "destacado": false
+}

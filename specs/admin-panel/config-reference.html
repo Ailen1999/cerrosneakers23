@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Configuración General - Cerro Sneakers</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#16169c",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111121",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen text-[#0e0e1b] dark:text-white">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- TopNavBar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[#e8e8f3] dark:border-white/10 px-10 py-3 bg-white dark:bg-[#1a1a2e]">
+<div class="flex items-center gap-4">
+<div class="size-6 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">token</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">Cerro Sneakers Admin</h2>
+</div>
+<div class="flex flex-1 justify-end gap-4">
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-[#e8e8f3] dark:bg-white/10 hover:bg-[#d1d1e6] transition-colors">
+<span class="material-symbols-outlined text-xl">search</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-[#e8e8f3] dark:bg-white/10 hover:bg-[#d1d1e6] transition-colors">
+<span class="material-symbols-outlined text-xl">notifications</span>
+</button>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-[#e8e8f3] dark:border-white/10" data-alt="User profile avatar showing a stylish person" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDZq8FqYeJ1yvXY6FJ0DoVIQHIyUKhoa8R2eK3hYzkFHqp2yhv2A7vv0lZ0bqtgLka-da6dRGzhgMJTEwqzFMn-PgRs-bZM42MfJUHhjXVjOWmXifkGMprW66EYPp2PduyAPhujrjvEFrUHvOlxVJ3XcW-5FOA_Le2gqPQHWA2yrvpv0Ie05mhdbSiLf6dLHqJPvkGcc7Anc9Y5RHvyi8jESAnxJuMu7iJ5hpOsBOPemrLCOUcYeP5MnnXWSk1Ea4tRQnaozZGwcpEA");'>
+</div>
+</div>
+</header>
+<div class="flex flex-1 justify-center py-8 px-4 sm:px-10 lg:px-40">
+<div class="flex flex-col lg:flex-row w-full max-w-[1200px] gap-8">
+<!-- SideNavBar -->
+<aside class="w-full lg:w-64 flex flex-col gap-6 shrink-0">
+<div class="flex flex-col">
+<h1 class="text-base font-bold leading-normal uppercase tracking-wider text-[#505095]">Configuración</h1>
+<p class="text-[#505095] text-sm font-normal leading-normal">Panel Administrativo</p>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary text-white shadow-sm transition-all" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="text-sm font-medium">Perfil de la Tienda</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#e8e8f3] dark:hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined">chat</span>
+<span class="text-sm font-medium">WhatsApp</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#e8e8f3] dark:hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined">credit_card</span>
+<span class="text-sm font-medium">Pagos</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#e8e8f3] dark:hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined">notifications_active</span>
+<span class="text-sm font-medium">Notificaciones</span>
+</a>
+<div class="my-4 border-t border-[#e8e8f3] dark:border-white/10"></div>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#e8e8f3] dark:hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Ajustes de Cuenta</span>
+</a>
+</nav>
+<button class="flex items-center justify-center gap-2 rounded-lg h-11 px-4 border border-[#e8e8f3] dark:border-white/10 text-red-600 dark:text-red-400 text-sm font-bold mt-auto hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors">
+<span class="material-symbols-outlined text-lg">logout</span>
+<span>Cerrar Sesión</span>
+</button>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 max-w-[800px]">
+<!-- PageHeading -->
+<div class="mb-8">
+<h2 class="text-[#0e0e1b] dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">Configuración General</h2>
+<p class="text-[#505095] dark:text-[#a0a0c0] text-base font-normal leading-normal mt-2">Administra la información básica y preferencias de tu tienda.</p>
+</div>
+<div class="space-y-12">
+<!-- Section: Perfil de la Tienda -->
+<section class="bg-white dark:bg-[#1a1a2e] p-6 rounded-xl border border-[#e8e8f3] dark:border-white/10 shadow-sm">
+<div class="flex items-center gap-2 mb-6 border-b border-[#f0f0f5] dark:border-white/5 pb-4">
+<span class="material-symbols-outlined text-primary">storefront</span>
+<h3 class="text-xl font-bold tracking-tight">Perfil de la Tienda</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-4">
+<label class="flex flex-col gap-2">
+<span class="text-sm font-semibold text-[#0e0e1b] dark:text-white">Nombre de la Tienda</span>
+<input class="form-input w-full rounded-lg border-[#d1d1e6] dark:border-white/20 bg-background-light dark:bg-[#111121] focus:ring-primary focus:border-primary h-12 px-4 text-sm" placeholder="Ej. Cerro Sneakers" type="text" value="Cerro Sneakers Official"/>
+</label>
+<label class="flex flex-col gap-2">
+<span class="text-sm font-semibold text-[#0e0e1b] dark:text-white">Descripción corta</span>
+<textarea class="form-input w-full rounded-lg border-[#d1d1e6] dark:border-white/20 bg-background-light dark:bg-[#111121] focus:ring-primary focus:border-primary p-4 text-sm resize-none" rows="3">Especialistas en sneakers de edición limitada y calzado premium.</textarea>
+</label>
+</div>
+<div class="flex flex-col gap-4">
+<span class="text-sm font-semibold text-[#0e0e1b] dark:text-white">Logo de la Tienda</span>
+<div class="group relative flex flex-col items-center justify-center border-2 border-dashed border-[#d1d1e6] dark:border-white/20 rounded-xl h-[164px] bg-background-light dark:bg-[#111121] hover:border-primary transition-all cursor-pointer">
+<div class="flex flex-col items-center gap-2">
+<span class="material-symbols-outlined text-3xl text-[#505095]">cloud_upload</span>
+<span class="text-xs font-medium text-[#505095]">Haz clic para subir o arrastra un archivo</span>
+<span class="text-[10px] text-[#505095]/60 uppercase tracking-widest">PNG, JPG hasta 5MB</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: WhatsApp -->
+<section class="bg-white dark:bg-[#1a1a2e] p-6 rounded-xl border border-[#e8e8f3] dark:border-white/10 shadow-sm">
+<div class="flex items-center gap-2 mb-6 border-b border-[#f0f0f5] dark:border-white/5 pb-4">
+<span class="material-symbols-outlined text-[#25D366]">chat</span>
+<h3 class="text-xl font-bold tracking-tight">WhatsApp Business</h3>
+</div>
+<div class="space-y-6">
+<label class="flex flex-col gap-2 max-w-md">
+<span class="text-sm font-semibold text-[#0e0e1b] dark:text-white">Número de Teléfono</span>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-[#505095] font-medium">+54</span>
+<input class="form-input w-full pl-12 rounded-lg border-[#d1d1e6] dark:border-white/20 bg-background-light dark:bg-[#111121] focus:ring-primary focus:border-primary h-12 text-sm" placeholder="11 1234 5678" type="text" value="9 11 5832-1192"/>
+</div>
+</label>
+<label class="flex flex-col gap-2">
+<span class="text-sm font-semibold text-[#0e0e1b] dark:text-white">Plantilla de Mensaje Predeterminado</span>
+<p class="text-xs text-[#505095] mb-1">Este mensaje se enviará automáticamente cuando un cliente inicie una consulta desde la web.</p>
+<textarea class="form-input w-full rounded-lg border-[#d1d1e6] dark:border-white/20 bg-background-light dark:bg-[#111121] focus:ring-primary focus:border-primary p-4 text-sm resize-none" rows="4">Hola Cerro Sneakers! 👋 Estoy interesado en los siguientes productos: {lista_productos}. ¿Tienen stock disponible?</textarea>
+</label>
+</div>
+</section>
+<!-- Section: Pagos -->
+<section class="bg-white dark:bg-[#1a1a2e] p-6 rounded-xl border border-[#e8e8f3] dark:border-white/10 shadow-sm">
+<div class="flex items-center gap-2 mb-6 border-b border-[#f0f0f5] dark:border-white/5 pb-4">
+<span class="material-symbols-outlined text-primary">payments</span>
+<h3 class="text-xl font-bold tracking-tight">Pasarela de Pagos</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<label class="flex flex-col gap-2">
+<span class="text-sm font-semibold text-[#0e0e1b] dark:text-white">Recargo por Tarjeta de Crédito</span>
+<div class="relative">
+<input class="form-input w-full rounded-lg border-[#d1d1e6] dark:border-white/20 bg-background-light dark:bg-[#111121] focus:ring-primary focus:border-primary h-12 px-4 text-sm" step="0.5" type="number" value="15.0"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-bold text-primary">%</span>
+</div>
+<span class="text-xs text-[#505095]">El porcentaje se aplicará al finalizar la compra.</span>
+</label>
+<div class="flex flex-col gap-2">
+<span class="text-sm font-semibold text-[#0e0e1b] dark:text-white">Métodos de pago activos</span>
+<div class="flex flex-wrap gap-2 pt-1">
+<span class="px-3 py-1 bg-primary/10 text-primary border border-primary/20 rounded-full text-xs font-bold uppercase">MercadoPago</span>
+<span class="px-3 py-1 bg-primary/10 text-primary border border-primary/20 rounded-full text-xs font-bold uppercase">Transferencia</span>
+<span class="px-3 py-1 bg-primary/10 text-primary border border-primary/20 rounded-full text-xs font-bold uppercase">Efectivo (Local)</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Notificaciones -->
+<section class="bg-white dark:bg-[#1a1a2e] p-6 rounded-xl border border-[#e8e8f3] dark:border-white/10 shadow-sm">
+<div class="flex items-center gap-2 mb-6 border-b border-[#f0f0f5] dark:border-white/5 pb-4">
+<span class="material-symbols-outlined text-primary">notifications_active</span>
+<h3 class="text-xl font-bold tracking-tight">Alertas y Notificaciones</h3>
+</div>
+<div class="flex flex-col gap-6">
+<div class="flex items-center justify-between p-4 bg-background-light dark:bg-[#111121] rounded-lg">
+<div class="flex flex-col">
+<span class="text-sm font-bold">Alertas de Stock Bajo</span>
+<span class="text-xs text-[#505095]">Notificar al administrador cuando un talle llegue al límite.</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="text-xs font-medium">Umbral:</span>
+<input class="w-16 h-8 rounded border-[#d1d1e6] dark:border-white/20 bg-white dark:bg-[#1a1a2e] text-center text-xs" type="number" value="5"/>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 bg-background-light dark:bg-[#111121] rounded-lg">
+<div class="flex flex-col">
+<span class="text-sm font-bold">Nuevos Pedidos</span>
+<span class="text-xs text-[#505095]">Notificar por Email cada vez que se realice una venta.</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- Footer Actions -->
+<div class="flex items-center justify-end gap-4 py-8 border-t border-[#e8e8f3] dark:border-white/10">
+<button class="px-6 h-12 rounded-lg text-sm font-bold text-[#505095] hover:bg-gray-200/50 dark:hover:bg-white/5 transition-colors">
+                                    Descartar cambios
+                                </button>
+<button class="bg-primary hover:bg-primary/90 text-white px-8 h-12 rounded-lg text-sm font-bold shadow-lg shadow-primary/20 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">save</span>
+                                    Guardar Cambios
+                                </button>
+</div>
+</div>
+</main>
+</div>
+</div>
+</div>
+</div>
+</body></html>

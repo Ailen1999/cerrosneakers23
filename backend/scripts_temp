@@ -1,0 +1,40 @@
+package main
+
+import (
+	"database/sql"
+	"fmt"
+	"log"
+
+	_ "modernc.org/sqlite"
+)
+
+func main() {
+	db, err := sql.Open("sqlite", "./catalog.db")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	rows, err := db.Query("SELECT id, nombre, categoria, genero FROM products")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer rows.Close()
+
+	fmt.Println("ID | Nombre | Categoria | Genero")
+	fmt.Println("---|---|---|---")
+	for rows.Next() {
+		var id int
+		var name, category string
+		var gender sql.NullString // Genero might be null or default
+		if err := rows.Scan(&id, &name, &category, &gender); err != nil {
+			log.Fatal(err)
+		}
+		
+		g := "NULL"
+		if gender.Valid {
+			g = gender.String
+		}
+		fmt.Printf("%d | %s | %s | %s\n", id, name, category, g)
+	}
+}

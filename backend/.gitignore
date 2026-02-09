@@ -1,0 +1,7 @@
+catalog.db
+*.exe
+*.test
+*.out
+go.sum
+.vscode/
+.idea/

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Propuesta Monocromática Minimalista - Cerro Sneakers</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#000000", // Monochromatic black
+              secondary: "#333333",
+              "background-light": "#FFFFFF",
+              "background-dark": "#121212",
+              "surface-light": "#F9F9F9",
+              "surface-dark": "#1E1E1E",
+            },
+            fontFamily: {
+              display: ["Playfair Display", "serif"],
+              sans: ["Inter", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0px", // Sharp edges for minimalist high-end feel
+              "sm": "2px",
+            },
+            backgroundImage: {
+               'hero-pattern': "linear-gradient(to right, rgba(0,0,0,0.3), rgba(0,0,0,0.1))",
+            }
+          },
+        },
+      };
+    </script>
+<style>::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        .text-shadow {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .aspect-3-4 {
+            aspect-ratio: 3/4;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300">
+<!-- NOTA: Este HTML representa el diseño EXACTO que debe seguirse al implementar la tienda en React -->
+<!-- No debe cambiarse ningún estilo, solo adaptarse a componentes React -->
+
+<!-- Header fijo con gradiente transparente -->
+<header class="fixed top-0 left-0 w-full z-50 text-white transition-all duration-300 bg-gradient-to-b from-black/50 to-transparent hover:bg-black/80">
+<div class="container mx-auto px-6 py-4 flex justify-between items-center">
+<nav class="hidden md:flex space-x-8 text-sm uppercase tracking-widest font-medium">
+<a class="hover:text-gray-300 transition-colors" href="#">Inicio</a>
+<a class="hover:text-gray-300 transition-colors" href="#">Tienda</a>
+<a class="hover:text-gray-300 transition-colors" href="#">Páginas</a>
+<a class="hover:text-gray-300 transition-colors" href="#">Blog</a>
+<a class="hover:text-gray-300 transition-colors" href="#">Contacto</a>
+</nav>
+<div class="absolute left-1/2 transform -translate-x-1/2">
+<a class="font-display text-3xl font-bold tracking-tight" href="#">Cerro Sneakers</a>
+</div>
+<div class="flex items-center space-x-6">
+<button aria-label="Cuenta" class="hover:text-gray-300 transition-colors"><span class="material-symbols-outlined">person</span></button>
+<button aria-label="Buscar" class="hover:text-gray-300 transition-colors"><span class="material-symbols-outlined">search</span></button>
+<button aria-label="Favoritos" class="hover:text-gray-300 transition-colors"><span class="material-symbols-outlined">favorite</span></button>
+<button aria-label="Carrito" class="relative hover:text-gray-300 transition-colors">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span class="absolute -top-1 -right-1 bg-white text-black text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">0</span>
+</button>
+<button class="ml-4 opacity-70 hover:opacity-100" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-symbols-outlined">contrast</span>
+</button>
+</div>
+</div>
+</header>
+
+<!-- Hero Carousel - Full screen -->
+<section class="relative h-screen w-full overflow-hidden">
+<div class="absolute inset-0">
+<img alt="Modelos con ropa urbana moderna" class="w-full h-full object-cover object-center filter brightness-[0.85]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqjwujgRwWY-YfC02W3d29d-6lyZFOBRxxaznm-aoDBEL027KreiqWHf56N5dUKBq9lYVJ9iKdfFxDVs18zalozfjEoH075GqfoxDr6YaLxshcFfD3WmfvRkUOIGy9PLzBRWjb3-K67bfukeTtgCEthBGWkqBUUa8CaeKXiQavJDsDiG14EO0swOeiwnOxcBeXTtAeuj7Gz5puR6rTR6zYxYtoFvJz8uf0pwjOZcsC5Qtr4LU_KFjwUNr0YvCj48kcWhK0Ei11CQBP"/>
+<div class="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent"></div>
+</div>
+<div class="relative z-10 container mx-auto px-6 h-full flex items-center">
+<div class="max-w-xl text-white mt-16">
+<p class="uppercase tracking-[0.2em] text-sm mb-4 font-semibold text-gray-200">Borde Urbano</p>
+<h1 class="font-display text-5xl md:text-7xl font-bold leading-tight mb-8 text-shadow">
+                    Chaquetas para <br/>el Hombre Moderno
+                </h1>
+<a class="inline-block bg-white text-black px-10 py-4 text-sm uppercase tracking-widest font-bold hover:bg-black hover:text-white transition-all duration-300 border border-white" href="#">
+                    Descubrir Ahora
+                </a>
+</div>
+</div>
+<button class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white rounded-full p-3 backdrop-blur-sm transition">
+<span class="material-symbols-outlined text-3xl">chevron_left</span>
+</button>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white rounded-full p-3 backdrop-blur-sm transition">
+<span class="material-symbols-outlined text-3xl">chevron_right</span>
+</button>
+</section>
+
+<!-- Product Grid Section -->
+<main class="container mx-auto px-6 py-20">
+<div class="text-center mb-16">
+<h2 class="font-display text-4xl font-semibold mb-6 dark:text-white">Nuevos Ingresos</h2>
+<div class="flex justify-center flex-wrap gap-6 text-sm uppercase tracking-widest text-gray-500 dark:text-gray-400 font-medium">
+<a class="text-black dark:text-white border-b-2 border-black dark:border-white pb-1" href="#">Mujer</a>
+<a class="hover:text-black dark:hover:text-white transition-colors pb-1 border-b-2 border-transparent hover:border-black dark:hover:border-white" href="#">Hombre</a>
+<a class="hover:text-black dark:hover:text-white transition-colors pb-1 border-b-2 border-transparent hover:border-black dark:hover:border-white" href="#">Zapatos</a>
+<a class="hover:text-black dark:hover:text-white transition-colors pb-1 border-b-2 border-transparent hover:border-black dark:hover:border-white" href="#">Bolsos</a>
+<a class="hover:text-black dark:hover:text-white transition-colors pb-1 border-b-2 border-transparent hover:border-black dark:hover:border-white" href="#">Accesorios</a>
+</div>
+</div>
+
+<!-- Product Grid: 4 columns desktop, 2 cols tablet, 1 col mobile -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+<!-- Product Card Example -->
+<div class="group cursor-pointer">
+<div class="relative bg-surface-light dark:bg-surface-dark mb-4 overflow-hidden aspect-3-4 flex items-center justify-center">
+<img alt="Polo azul marino" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJdsFS6LSvPa4VJ_Q-cI169IZG0-aTrhP_Mhs3SuHrdwJearlbW69GSPTHSS5fEM0r_tXSXQ9eoneXty5I3_bMDNPuaU93E_QrWucHcJaXdIaKA2hoeWccezIRwQcLc90aBSt94uWsx2kwC3_S1l5HYMeMJqTCj9v15B-5QXSyAv4QdKIhdPLWpiwSwJ08umSnbSu7uPvJWkNgaBNchNn44HLCUHhNGf9OQpQLpurjtQlJVvTQ6WiCjG5ch_7eR8ZjkBqRO96ePGYZ"/>
+<div class="absolute bottom-4 left-0 right-0 px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<button class="w-full bg-black text-white py-3 text-xs uppercase tracking-widest font-bold flex items-center justify-center gap-2 hover:bg-gray-800">
+<span class="material-symbols-outlined text-sm">chat</span>
+                            Comprar por WhatsApp
+                        </button>
+</div>
+</div>
+<div class="space-y-1">
+<p class="text-xs text-gray-500 uppercase tracking-wide">Chaquetas</p>
+<h3 class="font-medium text-lg leading-tight group-hover:underline dark:text-white">Polo Clásico Navy</h3>
+<div class="flex items-center gap-2 text-sm">
+<span class="font-bold text-black dark:text-white">$69.99 <span class="text-xs font-normal text-gray-500">(Efvo)</span></span>
+<span class="text-gray-400 line-through text-xs">$89.99</span>
+</div>
+</div>
+</div>
+<!-- Más productos aquí -->
+</div>
+</main>
+
+<!-- Feature Cards Section -->
+<section class="container mx-auto px-6 pb-20">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 h-auto md:h-[600px]">
+<!-- Feature cards with images -->
+</div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-black text-white pt-20 pb-10 border-t border-gray-800">
+<div class="container mx-auto px-6">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+<div class="col-span-1 md:col-span-1">
+<a class="font-display text-3xl font-bold tracking-tight mb-6 inline-block" href="#">Cerro Sneakers</a>
+<p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Moda urbana de alta gama para quienes definen el futuro. Calidad, estilo y vanguardia en cada prenda.
+                    </p>
+<div class="flex space-x-4">
+<a class="text-gray-400 hover:text-white transition-colors" href="#"><span class="material-symbols-outlined">public</span></a> 
+<a class="text-gray-400 hover:text-white transition-colors" href="#"><span class="material-symbols-outlined">alternate_email</span></a>
+<a class="text-gray-400 hover:text-white transition-colors" href="#"><span class="material-symbols-outlined">photo_camera</span></a>
+</div>
+</div>
+<!-- More footer columns... -->
+</div>
+<div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+<p>© 2023 Cerro Sneakers. Todos los derechos reservados.</p>
+<div class="flex space-x-6 mt-4 md:mt-0">
+<a class="hover:text-white transition-colors" href="#">Privacidad</a>
+<a class="hover:text-white transition-colors" href="#">Términos</a>
+</div>
+</div>
+</div>
+</footer>
+
+</body></html>

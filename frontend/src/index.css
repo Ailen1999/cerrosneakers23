@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ... scrollbar styles ... */
+
+/* Material Symbols Outlined Icons */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  /* Prevent browser translation from breaking ligatures */
+  -webkit-font-smoothing: antialiased;
+  translate: none; 
+}
+/* Utility class to stop translation explicitly */
+.notranslate {
+  translate: no;
+}
+
+.material-symbols-outlined.fill {
+  font-variation-settings: 'FILL' 1;
+}
+
+/* Table Row Hover Effect */
+.table-row-hover:hover td {
+  background-color: #F9FAFB;
+}
+
+.dark .table-row-hover:hover td {
+  background-color: #262626;
+}
+
+/* Toast Animations */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slideIn {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Aspect Ratio 3:4 for Product Cards */
+.aspect-3-4 {
+  aspect-ratio: 3/4;
+}
+
+/* Hide Spinners on Input Number */
+/* Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

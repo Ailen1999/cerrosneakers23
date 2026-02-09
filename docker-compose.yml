@@ -1,0 +1,78 @@
+services:
+  traefik:
+    image: "traefik:v2.10"
+    container_name: "traefik"
+    command:
+      #- "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+      #- "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.myresolver.acme.email=tu-email@ejemplo.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - "./letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    networks:
+      - tienda-network
+
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend/uploads:/root/uploads
+      - ./backend/catalog.db:/root/catalog.db
+    environment:
+      - GIN_MODE=release
+    labels:
+      - "traefik.enable=true"
+      # HTTP Router (redirect to HTTPS)
+      - "traefik.http.routers.backend.entrypoints=web"
+      - "traefik.http.routers.backend.rule=Host(`localhost`) && PathPrefix(`/api`)"
+      - "traefik.http.middlewares.backend-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.backend.middlewares=backend-https-redirect"
+      # HTTPS Router
+      - "traefik.http.routers.backend-secure.entrypoints=websecure"
+      - "traefik.http.routers.backend-secure.rule=Host(`localhost`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.backend-secure.tls=true"
+      - "traefik.http.routers.backend-secure.tls.certresolver=myresolver"
+      - "traefik.http.services.backend.loadbalancer.server.port=8080"
+    networks:
+      - tienda-network
+
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=/ 
+    labels:
+      - "traefik.enable=true"
+      # HTTP Router (redirect to HTTPS)
+      - "traefik.http.routers.frontend.entrypoints=web"
+      - "traefik.http.routers.frontend.rule=Host(`localhost`)"
+      - "traefik.http.middlewares.frontend-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.frontend.middlewares=frontend-https-redirect"
+      # HTTPS Router
+      - "traefik.http.routers.frontend-secure.entrypoints=websecure"
+      - "traefik.http.routers.frontend-secure.rule=Host(`localhost`)"
+      - "traefik.http.routers.frontend-secure.tls=true"
+      - "traefik.http.routers.frontend-secure.tls.certresolver=myresolver"
+      - "traefik.http.services.frontend.loadbalancer.server.port=80"
+    depends_on:
+      - backend
+    networks:
+      - tienda-network
+
+networks:
+  tienda-network:
+    driver: bridge
