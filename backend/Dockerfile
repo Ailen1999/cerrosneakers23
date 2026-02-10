@@ -10,6 +10,9 @@ WORKDIR /app
 COPY go.mod ./
 # COPY go.sum ./
 
+# Set GOTOOLCHAIN to auto to allow downloading Go 1.24
+ENV GOTOOLCHAIN=auto
+
 # Download all dependencies
 RUN go mod download
 
@@ -26,7 +29,6 @@ WORKDIR /root/
 
 # Copy the binary from the builder stage
 COPY --from=builder /app/main .
-COPY --from=builder /app/catalog.db . 
 # Note: copying catalog.db might overwrite data if volume is not used correctly. 
 # Better to let the app create it if it doesn't exist, or use a volume.
 # For simplicity in this demo, we assume the app creates it.

@@ -53,3 +53,31 @@ La configuración actual es funcional pero requiere ajustes para un entorno prod
 -   **Ver logs**: `docker-compose logs -f`
 -   **Detener**: `docker-compose down`
 -   **Reconstruir**: `docker-compose up --build -d`
+
+## Despliegue en Producción (AWS)
+
+Para desplegar en producción usando AWS, NO debes hacer build en el servidor para evitar problemas de recursos.
+
+### Flujo Recomendado:
+
+1. **Build local** → 2. **Push a Docker Hub** → 3. **Pull en servidor** → 4. **Deploy**
+
+### Documentación:
+
+- **[DEPLOY_WORKFLOW.md](./DEPLOY_WORKFLOW.md)**: Guía rápida del flujo de despliegue
+- **[DEPLOY_AWS.md](./DEPLOY_AWS.md)**: Guía completa paso a paso para AWS
+- **[build-and-push.ps1](./build-and-push.ps1)**: Script automatizado para build y push
+
+### Inicio Rápido:
+
+```powershell
+# 1. Construir y publicar imágenes (desde local)
+.\build-and-push.ps1 tu-usuario-dockerhub
+
+# 2. En el servidor AWS
+docker-compose -f docker-compose.prod.yml pull
+docker-compose -f docker-compose.prod.yml up -d
+```
+
+Consulta [DEPLOY_WORKFLOW.md](./DEPLOY_WORKFLOW.md) para más detalles.
+

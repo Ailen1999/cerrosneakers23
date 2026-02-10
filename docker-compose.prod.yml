@@ -12,7 +12,7 @@ services:
       - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
       - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
       #- "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
-      - "--certificatesresolvers.myresolver.acme.email=cerrosnakears23@gmail.com"
+      - "--certificatesresolvers.myresolver.acme.email=cerrosneakers23@gmail.com"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
     ports:
       - "80:80"
@@ -25,12 +25,10 @@ services:
       - tienda-network
 
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    image: tomasspe/cerrosneakers23-backend:latest
     volumes:
-      - ./backend/uploads:/root/uploads
-      - ./backend/catalog.db:/root/catalog.db
+      - ./data/uploads:/root/uploads
+      - ./data/catalog.db:/root/catalog.db
     environment:
       - GIN_MODE=release
     labels:
@@ -50,11 +48,7 @@ services:
       - tienda-network
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-      args:
-        - VITE_API_URL=/
+    image: tomasspe/cerrosneakers23-frontend:latest
     labels:
       - "traefik.enable=true"
       # HTTP Router (redirect to HTTPS)
