@@ -25,6 +25,19 @@ func InitDB(dbPath string) error {
 
 	log.Println("Conexión a base de datos SQLite establecida")
 
+	// Optimizaciones para producción
+	DB.Exec("PRAGMA journal_mode=WAL")
+	DB.Exec("PRAGMA synchronous=NORMAL")
+	DB.Exec("PRAGMA busy_timeout=5000")
+	DB.Exec("PRAGMA foreign_keys=ON")
+
+	// Connection pool para SQLite (single-writer)
+	DB.SetMaxOpenConns(1)
+	DB.SetMaxIdleConns(1)
+	DB.SetConnMaxLifetime(0)
+
+	log.Println("PRAGMAs de producción configurados (WAL, foreign_keys, busy_timeout)")
+
 	// Ejecutar migraciones
 	if err = RunMigrations(); err != nil {
 		return fmt.Errorf("error al ejecutar migraciones: %w", err)

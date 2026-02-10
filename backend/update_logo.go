@@ -1,3 +1,5 @@
+//go:build ignore
+
 package main
 
 import (
@@ -16,7 +18,7 @@ func main() {
 	defer db.Close()
 
 	newLogoURL := "http://localhost:8080/uploads/cerro_logo_high_res.png"
-	
+
 	result, err := db.Exec("UPDATE site_configs SET logo_url = ?, updated_at = CURRENT_TIMESTAMP WHERE id = 1", newLogoURL)
 	if err != nil {
 		log.Fatal(err)
@@ -24,7 +26,7 @@ func main() {
 
 	rows, _ := result.RowsAffected()
 	fmt.Printf("Filas actualizadas: %d\n", rows)
-	
+
 	if rows == 0 {
 		// Probablemente no hay fila con id=1, intentar insertar si la tabla existe pero está vacía
 		_, err = db.Exec("INSERT INTO site_configs (id, logo_url) VALUES (1, ?)", newLogoURL)

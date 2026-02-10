@@ -1,3 +1,5 @@
+//go:build ignore
+
 package main
 
 import (
@@ -224,7 +226,7 @@ func main() {
 
 	// Insertar todos los productos
 	allProducts := append(invierno, verano...)
-	
+
 	for _, p := range allProducts {
 		// Serializar arrays a JSON
 		tallasJSON, _ := json.Marshal(p.Tallas)

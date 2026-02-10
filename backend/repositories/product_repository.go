@@ -45,6 +45,11 @@ func (r *ProductRepository) Create(product *models.Product) error {
 		return fmt.Errorf("error al serializar stock_by_size: %w", err)
 	}
 
+	// Normalizar campos para queries eficientes (indices)
+	product.Categoria = strings.ToLower(product.Categoria)
+	product.Genero = strings.ToLower(product.Genero)
+	product.Temporada = strings.ToLower(product.Temporada)
+
 	query := `
 		INSERT INTO products (nombre, descripcion, categoria, genero, temporada, precio, precio_lista, stock, stock_by_size, tallas, colores, imagenes, activo, destacado, created_at, updated_at)
 		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -99,7 +104,7 @@ func (r *ProductRepository) GetAll(limit, offset int, categories, genders, sizes
 
 	// Agregar filtros
 	if len(categories) > 0 {
-		baseQuery += " AND LOWER(categoria) IN ("
+		baseQuery += " AND categoria IN ("
 		for i, cat := range categories {
 			if i > 0 {
 				baseQuery += ", "
@@ -111,7 +116,7 @@ func (r *ProductRepository) GetAll(limit, offset int, categories, genders, sizes
 	}
 
 	if len(genders) > 0 {
-		baseQuery += " AND LOWER(genero) IN ("
+		baseQuery += " AND genero IN ("
 		for i, gen := range genders {
 			if i > 0 {
 				baseQuery += ", "
@@ -135,7 +140,7 @@ func (r *ProductRepository) GetAll(limit, offset int, categories, genders, sizes
 	}
 
 	if len(temporadas) > 0 {
-		baseQuery += " AND LOWER(temporada) IN ("
+		baseQuery += " AND temporada IN ("
 		for i, temp := range temporadas {
 			if i > 0 {
 				baseQuery += ", "
@@ -289,7 +294,7 @@ func (r *ProductRepository) GetByID(id uint) (*models.Product, error) {
 		product.Descripcion = descripcion.String
 	}
 	if genero.Valid {
-		product. Genero = genero.String
+		product.Genero = genero.String
 	}
 	if temporada.Valid {
 		product.Temporada = temporada.String
@@ -319,6 +324,11 @@ func (r *ProductRepository) Update(product *models.Product) error {
 	coloresJSON, _ := json.Marshal(product.Colores)
 	imagenesJSON, _ := json.Marshal(product.Imagenes)
 	stockBySizeJSON, _ := json.Marshal(product.StockBySize)
+
+	// Normalizar campos para queries eficientes (indices)
+	product.Categoria = strings.ToLower(product.Categoria)
+	product.Genero = strings.ToLower(product.Genero)
+	product.Temporada = strings.ToLower(product.Temporada)
 
 	query := `
 		UPDATE products
