@@ -2,7 +2,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useConfig } from '../../contexts/ConfigContext';
 
-function Sidebar() {
+function Sidebar({ isOpen, onClose }) {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, logout } = useAuth();
@@ -16,9 +16,24 @@ function Sidebar() {
   };
 
   return (
-    <aside className="w-72 bg-black text-white flex-shrink-0 flex flex-col hidden md:flex h-full border-r border-gray-800">
+    <>
+      {/* Mobile Overlay */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          onClick={onClose}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside className={`
+        w-72 bg-black text-white flex-shrink-0 flex flex-col h-full border-r border-gray-800
+        fixed md:relative z-50
+        transition-transform duration-300 ease-in-out
+        ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+      `}>
       {/* Header */}
-      <div className="h-20 flex items-center px-8 border-b border-gray-800">
+      <div className="h-20 flex items-center justify-between px-8 border-b border-gray-800">
         <a href="/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group">
           {config?.logo_url ? (
             <img 
@@ -31,6 +46,13 @@ function Sidebar() {
           )}
           <span className="text-gray-500 text-[10px] font-sans tracking-[0.2em] uppercase mt-2">ADMIN</span>
         </a>
+        {/* Close button for mobile */}
+        <button 
+          onClick={onClose}
+          className="md:hidden text-gray-400 hover:text-white"
+        >
+          <span className="material-symbols-outlined notranslate">close</span>
+        </button>
       </div>
 
       {/* Navigation */}
@@ -132,6 +154,7 @@ function Sidebar() {
         </button>
       </div>
     </aside>
+    </>
   );
 }
 

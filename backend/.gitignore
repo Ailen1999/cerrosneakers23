@@ -5,3 +5,5 @@ catalog.db
 go.sum
 .vscode/
 .idea/
+*.db-shm
+*.db-wal
