@@ -56,10 +56,15 @@ func RunMigrations() error {
 		return err
 	}
 
-	log.Println("Índices creados correctamente")
+	// Índices adicionales para filtros
+	DB.Exec(`CREATE INDEX IF NOT EXISTS idx_products_genero ON products(genero)`)
+	DB.Exec(`CREATE INDEX IF NOT EXISTS idx_products_temporada ON products(temporada)`)
+	DB.Exec(`CREATE INDEX IF NOT EXISTS idx_products_destacado ON products(destacado)`)
+
+	log.Println("Índices de products creados correctamente")
 
 	// Ensure precio_lista column exists
-	// Note: SQLite doesn't support IF NOT EXISTS for ADD COLUMN in older versions, 
+	// Note: SQLite doesn't support IF NOT EXISTS for ADD COLUMN in older versions,
 	// but we can check if it exists or just try and ignore error.
 	// For simplicity in this dev environment, we'll try to add it.
 	// In a robust migration system, we would check pragma table_info.
@@ -80,14 +85,11 @@ func RunMigrations() error {
 		log.Printf("Nota: Columna temporada probablemente ya existe o error: %v", err)
 	}
 
-	// Update existing products to have a list price if they don't have one (for demo purposes)
-	// Set list price to 20% more than cash price
-	updatePricesSQL := `UPDATE products SET precio_lista = precio * 1.2 WHERE precio_lista = 0 OR precio_lista IS NULL;`
+	// Actualizar precios de lista solo para productos que no tienen uno configurado
+	updatePricesSQL := `UPDATE products SET precio_lista = precio * 1.2 WHERE precio_lista IS NULL;`
 	_, err = DB.Exec(updatePricesSQL)
 	if err != nil {
 		log.Println("Error actualizando precios de lista: ", err)
-	} else {
-		log.Println("Precios de lista actualizados para productos existentes")
 	}
 
 	// Crear tabla carousel_slides
@@ -161,6 +163,9 @@ func RunMigrations() error {
 
 	log.Println("Índice de users creado correctamente")
 
+	// Índice para búsqueda por email
+	DB.Exec(`CREATE INDEX IF NOT EXISTS idx_users_email ON users(email)`)
+
 	// Agregar columna email a users si no existe
 	if err := AddColumnIfNotExists("users", "email", "TEXT"); err != nil {
 		log.Printf("Nota: Columna email probablemente ya existe o error: %v", err)
@@ -170,7 +175,7 @@ func RunMigrations() error {
 	// Nota: La contraseña por defecto es "admin123" (debe cambiarse en producción)
 	// Hash bcrypt de "admin123" con cost 10 (Generado verificado: 2026-01-27)
 	defaultAdminPasswordHash := "$2a$10$q1Kk2UkXVQG8shc2oc8hD.2zvy.LIP9/33o9KkSnmsG3RngmHr9fS"
-	
+
 	checkAdminSQL := `SELECT COUNT(*) FROM users WHERE username = 'admin'`
 	var count int
 	err = DB.QueryRow(checkAdminSQL).Scan(&count)
@@ -194,7 +199,6 @@ func RunMigrations() error {
 		}
 		log.Println("Usuario admin ya existe. Contraseña reseteada a: admin123")
 	}
-
 
 	// Crear tabla orders
 	createOrdersTableSQL := `
@@ -249,7 +253,12 @@ func RunMigrations() error {
 		return err
 	}
 	log.Println("Índices de orders creados correctamente")
-	
+
+	// Índices para order_items (FK sin índice)
+	DB.Exec(`CREATE INDEX IF NOT EXISTS idx_order_items_order_id ON order_items(order_id)`)
+	DB.Exec(`CREATE INDEX IF NOT EXISTS idx_order_items_product_id ON order_items(product_id)`)
+	log.Println("Índices de order_items creados correctamente")
+
 	// Crear tabla site_configs
 	createSiteConfigsTableSQL := `
 	CREATE TABLE IF NOT EXISTS site_configs (
@@ -305,7 +314,7 @@ func AddColumnIfNotExists(tableName, columnName, columnDef string) error {
 	if err != nil {
 		return fmt.Errorf("error adding column %s to %s: %v", columnName, tableName, err)
 	}
-	
+
 	log.Printf("Columna %s agregada a tabla %s", columnName, tableName)
 	return nil
 }

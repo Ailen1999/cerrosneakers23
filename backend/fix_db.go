@@ -1,3 +1,5 @@
+//go:build ignore
+
 package main
 
 import (
@@ -18,7 +20,7 @@ func main() {
 
 	// Update all orders to have a valid timestamp (Time.Now formatted by Go driver)
 	// This overwrites the "bad" timestamps that crash the Scan
-    // Also ensuring updated_at is set.
+	// Also ensuring updated_at is set.
 	now := time.Now()
 	_, err = db.Exec("UPDATE orders SET created_at = ?, updated_at = ?", now, now)
 	if err != nil {

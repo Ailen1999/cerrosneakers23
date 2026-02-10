@@ -172,32 +172,27 @@ func (r *OrderRepository) Update(order *models.Order) error {
 		SET customer_name = ?, customer_email = ?, customer_phone = ?, customer_address = ?, notes = ?, updated_at = ?
 		WHERE id = ?
 	`
-	_, err := r.db.Exec(query, 
+	_, err := r.db.Exec(query,
 		order.CustomerName, order.CustomerEmail, order.CustomerPhone, order.CustomerAddress, order.Notes, time.Now(), order.ID,
 	)
 	return err
 }
 
-// Delete elimina un pedido y sus items
+// Delete elimina un pedido y sus items (cascade automático con foreign_keys=ON)
 func (r *OrderRepository) Delete(id uint) error {
-	tx, err := r.db.Begin()
+	result, err := r.db.Exec("DELETE FROM orders WHERE id = ?", id)
+	if err != nil {
+		return fmt.Errorf("error al eliminar orden: %w", err)
+	}
+
+	rowsAffected, err := result.RowsAffected()
 	if err != nil {
 		return err
 	}
 
-	// 1. Eliminar items primero (foreign key constraint)
-	_, err = tx.Exec("DELETE FROM order_items WHERE order_id = ?", id)
-	if err != nil {
-		tx.Rollback()
-		return fmt.Errorf("error al eliminar items del pedido: %w", err)
+	if rowsAffected == 0 {
+		return fmt.Errorf("orden no encontrada")
 	}
 
-	// 2. Eliminar orden
-	_, err = tx.Exec("DELETE FROM orders WHERE id = ?", id)
-	if err != nil {
-		tx.Rollback()
-		return fmt.Errorf("error al eliminar orden: %w", err)
-	}
-
-	return tx.Commit()
+	return nil
 }
