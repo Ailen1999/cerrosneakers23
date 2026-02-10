@@ -190,7 +190,7 @@ function HomePage() {
           <div className="flex items-center border-t border-b border-gray-100 py-6 relative">
             <div className="flex-1 hidden md:block"></div> {/* Spacer to help centering */}
             
-            <nav className="flex items-center gap-8 overflow-x-auto no-scrollbar mx-auto">
+            <nav className="hidden md:flex items-center gap-8 overflow-x-auto no-scrollbar mx-auto">
               {[
                 { label: 'VER TODO', value: '', type: 'all' },
                 { label: 'CALZADO', value: 'calzado', type: 'category' },

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function Header({ pageTitle = 'Dashboard' }) {
+function Header({ pageTitle = 'Dashboard', onMenuToggle }) {
   const toggleDarkMode = () => {
     document.documentElement.classList.toggle('dark');
   };
@@ -9,6 +9,7 @@ function Header({ pageTitle = 'Dashboard' }) {
     <header className="h-20 bg-white dark:bg-[#121212] border-b border-border-light dark:border-border-dark flex items-center justify-between px-8 flex-shrink-0 z-10">
       <div className="flex items-center gap-4">
         <button 
+          onClick={onMenuToggle}
           className="md:hidden text-gray-500 hover:text-black dark:hover:text-white"
         >
           <span className="material-symbols-outlined notranslate">menu</span>

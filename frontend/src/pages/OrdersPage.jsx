@@ -25,10 +25,12 @@ function OrdersPage() {
     setLoading(true);
     try {
       const data = await orderService.getOrders(filters);
-      setOrders(data.data);
-      setTotal(data.total);
+      setOrders(data.data || []);
+      setTotal(data.total || 0);
     } catch (error) {
       console.error('Error fetching orders:', error);
+      setOrders([]);
+      setTotal(0);
     } finally {
       setLoading(false);
     }

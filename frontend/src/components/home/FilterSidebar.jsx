@@ -91,7 +91,7 @@ function FilterSidebar({
         <div className="flex-1 overflow-y-auto p-6 space-y-8">
           
           {/* Active Filters Display */}
-          {(filters.category.length > 0 || filters.gender.length > 0 || filters.sizes.length > 0) && (
+          {(filters.category.length > 0 || filters.temporada.length > 0 || filters.gender.length > 0 || filters.sizes.length > 0) && (
              <div className="mb-6">
                 <h3 className="text-[10px] font-bold mb-3 uppercase tracking-widest text-gray-400">Filtros aplicados</h3>
                 <div className="flex flex-wrap gap-2">
@@ -99,6 +99,12 @@ function FilterSidebar({
                         <span key={cat} className="inline-flex items-center gap-2 px-3 py-1.5 bg-black text-white rounded-sm text-[10px] font-bold uppercase tracking-wider">
                             <span onClick={() => onFilterChange({ category: filters.category.filter(c => c !== cat) })} className="cursor-pointer material-symbols-outlined text-xs">close</span>
                             {cat}
+                        </span>
+                    ))}
+                    {filters.temporada.map(temp => (
+                        <span key={temp} className="inline-flex items-center gap-2 px-3 py-1.5 bg-black text-white rounded-sm text-[10px] font-bold uppercase tracking-wider">
+                            <span onClick={() => onFilterChange({ temporada: filters.temporada.filter(t => t !== temp) })} className="cursor-pointer material-symbols-outlined text-xs">close</span>
+                            {temp}
                         </span>
                     ))}
                     {filters.gender.map(gen => {
@@ -147,6 +153,79 @@ function FilterSidebar({
                     className="w-6 h-6 border-[1.5px] border-gray-300 rounded-full checked:border-black checked:bg-white focus:ring-0 cursor-pointer appearance-none relative checked:after:content-[''] checked:after:absolute checked:after:w-3 checked:after:h-3 checked:after:bg-black checked:after:rounded-full checked:after:top-1/2 checked:after:left-1/2 checked:after:-translate-x-1/2 checked:after:-translate-y-1/2 transition-all"
                   />
                   <span className={`text-sm tracking-tight transition-colors ${filters.sort === option.value ? 'font-bold text-black' : 'text-gray-600 group-hover:text-black'}`}>
+                    {option.label}
+                  </span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <hr className="border-gray-100" />
+
+          {/* Category Section */}
+          <div>
+            <div className="flex items-center justify-between mb-4 group cursor-pointer">
+              <h3 className="text-base font-bold text-black uppercase tracking-widest text-xs">Categoría</h3>
+              <span className="material-symbols-outlined transform rotate-180 text-gray-400">expand_more</span>
+            </div>
+            
+            <div className="space-y-4 pl-1">
+              {[
+                { label: 'Calzado', value: 'calzado' },
+                { label: 'Indumentaria', value: 'indumentaria' },
+                { label: 'Deportes', value: 'deportes' },
+              ].map((option) => (
+                <label key={option.value} className="flex items-center gap-3 cursor-pointer group">
+                  <input 
+                    type="radio" 
+                    name="category" 
+                    checked={filters.category.includes(option.value)}
+                    onChange={() => {
+                      if (filters.category.includes(option.value)) {
+                        onFilterChange({ category: [], temporada: [] });
+                      } else {
+                        onFilterChange({ category: [option.value], temporada: [] });
+                      }
+                    }}
+                    className="w-6 h-6 border-[1.5px] border-gray-300 rounded-full checked:border-black checked:bg-white focus:ring-0 cursor-pointer appearance-none relative checked:after:content-[''] checked:after:absolute checked:after:w-3 checked:after:h-3 checked:after:bg-black checked:after:rounded-full checked:after:top-1/2 checked:after:left-1/2 checked:after:-translate-x-1/2 checked:after:-translate-y-1/2 transition-all"
+                  />
+                  <span className={`text-sm tracking-tight transition-colors ${filters.category.includes(option.value) ? 'font-bold text-black' : 'text-gray-600 group-hover:text-black'}`}>
+                    {option.label}
+                  </span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <hr className="border-gray-100" />
+
+          {/* Season Section */}
+          <div>
+            <div className="flex items-center justify-between mb-4 group cursor-pointer">
+              <h3 className="text-base font-bold text-black uppercase tracking-widest text-xs">Temporada</h3>
+              <span className="material-symbols-outlined transform rotate-180 text-gray-400">expand_more</span>
+            </div>
+            
+            <div className="space-y-4 pl-1">
+              {[
+                { label: 'Invierno', value: 'invierno' },
+                { label: 'Verano', value: 'verano' },
+              ].map((option) => (
+                <label key={option.value} className="flex items-center gap-3 cursor-pointer group">
+                  <input 
+                    type="radio" 
+                    name="temporada" 
+                    checked={filters.temporada.includes(option.value)}
+                    onChange={() => {
+                      if (filters.temporada.includes(option.value)) {
+                        onFilterChange({ temporada: [], category: [] });
+                      } else {
+                        onFilterChange({ temporada: [option.value], category: [] });
+                      }
+                    }}
+                    className="w-6 h-6 border-[1.5px] border-gray-300 rounded-full checked:border-black checked:bg-white focus:ring-0 cursor-pointer appearance-none relative checked:after:content-[''] checked:after:absolute checked:after:w-3 checked:after:h-3 checked:after:bg-black checked:after:rounded-full checked:after:top-1/2 checked:after:left-1/2 checked:after:-translate-x-1/2 checked:after:-translate-y-1/2 transition-all"
+                  />
+                  <span className={`text-sm tracking-tight transition-colors ${filters.temporada.includes(option.value) ? 'font-bold text-black' : 'text-gray-600 group-hover:text-black'}`}>
                     {option.label}
                   </span>
                 </label>
