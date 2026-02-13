@@ -87,6 +87,53 @@ function FilterSidebar({
           </div>
         </div>
 
+        {/* Quick Category Navigation - Prominent at top */}
+        <div className="px-6 py-4 bg-gray-50 border-b border-gray-100">
+          <h3 className="text-[10px] font-bold mb-3 uppercase tracking-widest text-gray-400">Navegar por</h3>
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => {
+                onFilterChange({ category: [], temporada: [] });
+                onClose();
+              }}
+              className={`px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all ${
+                filters.category.length === 0 && filters.temporada.length === 0
+                  ? 'bg-black text-white'
+                  : 'bg-white border border-gray-200 text-gray-700 hover:border-black'
+              }`}
+            >
+              Ver Todo
+            </button>
+            {[
+              { label: 'Calzado', value: 'calzado', type: 'category' },
+              { label: 'Indumentaria', value: 'indumentaria', type: 'category' },
+              { label: 'Deportes', value: 'deportes', type: 'category' },
+              { label: 'Invierno', value: 'invierno', type: 'temporada' },
+              { label: 'Verano', value: 'verano', type: 'temporada' },
+            ].map((cat) => (
+              <button
+                key={cat.value}
+                onClick={() => {
+                  if (cat.type === 'category') {
+                    onFilterChange({ category: [cat.value], temporada: [] });
+                  } else {
+                    onFilterChange({ temporada: [cat.value], category: [] });
+                  }
+                  onClose();
+                }}
+                className={`px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all ${
+                  (cat.type === 'category' && filters.category.includes(cat.value)) ||
+                  (cat.type === 'temporada' && filters.temporada.includes(cat.value))
+                    ? 'bg-black text-white'
+                    : 'bg-white border border-gray-200 text-gray-700 hover:border-black'
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Content */}
         <div className="flex-1 overflow-y-auto p-6 space-y-8">
           

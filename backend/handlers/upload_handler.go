@@ -49,14 +49,9 @@ func (h *UploadHandler) UploadFile(c *gin.Context) {
 		return
 	}
 
-	// Construir URL completa
-	// En producción, esto debería usar una variable de entorno para el host
-	protocol := "http"
-	if c.Request.TLS != nil {
-		protocol = "https"
-	}
-	host := c.Request.Host
-	url := fmt.Sprintf("%s://%s/uploads/%s", protocol, host, filename)
+	// Construir URL relativa para que funcione tanto en desarrollo como en producción
+	// El navegador la resolverá automáticamente al dominio correcto
+	url := fmt.Sprintf("/uploads/%s", filename)
 
 	c.JSON(http.StatusOK, gin.H{
 		"url": url,

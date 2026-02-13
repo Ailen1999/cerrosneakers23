@@ -1,27 +1,34 @@
 import { useState } from 'react';
+import uploadService from '../../../services/uploadService';
 
 function ImageGallery({ images = [], onChange }) {
   const [mainImage, setMainImage] = useState(0);
+  const [uploadingIndex, setUploadingIndex] = useState(null);
   const maxImages = 4; // 1 main + 3 thumbnails
 
-  const handleImageUpload = (index) => {
+  const handleImageUpload = async (index) => {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = 'image/*';
-    input.onchange = (e) => {
+    input.onchange = async (e) => {
       const file = e.target.files[0];
       if (file) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
+        try {
+          setUploadingIndex(index);
+          const response = await uploadService.uploadFile(file);
           const newImages = [...images];
           if (index < newImages.length) {
-            newImages[index] = event.target.result;
+            newImages[index] = response.url;
           } else {
-            newImages.push(event.target.result);
+            newImages.push(response.url);
           }
           onChange?.(newImages);
-        };
-        reader.readAsDataURL(file);
+        } catch (error) {
+          console.error('Error uploading image:', error);
+          alert('Error al subir la imagen. Por favor, intenta de nuevo.');
+        } finally {
+          setUploadingIndex(null);
+        }
       }
     };
     input.click();
@@ -59,10 +66,16 @@ function ImageGallery({ images = [], onChange }) {
             onClick={() => handleImageUpload(0)}
             className="flex flex-col items-center gap-3 text-gray-400 dark:text-gray-600 hover:text-black dark:hover:text-white transition-colors py-16"
             type="button"
+            disabled={uploadingIndex === 0}
           >
             <span className="material-symbols-outlined notranslate text-5xl">add_photo_alternate</span>
             <span className="text-sm font-medium">Subir imagen principal</span>
           </button>
+        )}
+        {uploadingIndex === 0 && (
+          <div className="absolute inset-0 flex items-center justify-center bg-white/80 dark:bg-black/80">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black dark:border-white"></div>
+          </div>
         )}
       </div>
 
@@ -106,10 +119,15 @@ function ImageGallery({ images = [], onChange }) {
                   }}
                   className="flex flex-col items-center gap-1 text-gray-300 dark:text-gray-700 hover:text-black dark:hover:text-white transition-colors p-4"
                   type="button"
-                  disabled={images.length < imageIndex}
+                  disabled={images.length < imageIndex || uploadingIndex === imageIndex}
                 >
                   <span className="material-symbols-outlined notranslate text-2xl">add</span>
                 </button>
+              )}
+              {uploadingIndex === imageIndex && (
+                <div className="absolute inset-0 flex items-center justify-center bg-white/80 dark:bg-black/80">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-black dark:border-white"></div>
+                </div>
               )}
             </div>
           );

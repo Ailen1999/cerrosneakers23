@@ -35,12 +35,12 @@ services:
       - "traefik.enable=true"
       # HTTP Router (redirect to HTTPS)
       - "traefik.http.routers.backend.entrypoints=web"
-      - "traefik.http.routers.backend.rule=Host(`cerrosneakers23.com.ar`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.backend.rule=Host(`cerrosneakers23.com.ar`) && (PathPrefix(`/api`) || PathPrefix(`/uploads`))"
       - "traefik.http.middlewares.backend-https-redirect.redirectscheme.scheme=https"
       - "traefik.http.routers.backend.middlewares=backend-https-redirect"
       # HTTPS Router
       - "traefik.http.routers.backend-secure.entrypoints=websecure"
-      - "traefik.http.routers.backend-secure.rule=Host(`cerrosneakers23.com.ar`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.backend-secure.rule=Host(`cerrosneakers23.com.ar`) && (PathPrefix(`/api`) || PathPrefix(`/uploads`))"
       - "traefik.http.routers.backend-secure.tls=true"
       - "traefik.http.routers.backend-secure.tls.certresolver=myresolver"
       - "traefik.http.services.backend.loadbalancer.server.port=8080"

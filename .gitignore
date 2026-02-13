@@ -1,12 +1,6 @@
-# Database files
-*.db
 *.db-shm
 *.db-wal
 
 # Uploads directories
 uploads/
 backend/uploads/
-
-# Compiled binaries
-*.exe
-backend.exe

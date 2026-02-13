@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useImperativeHandle, forwardRef } from 'react';
 import ImageGallery from './form/ImageGallery';
 import ProductFormFields from './form/ProductFormFields';
 import ProductPricing from './form/ProductPricing';
@@ -6,7 +6,13 @@ import InventorySizeManager from './form/InventorySizeManager';
 import FormFooter from '../shared/FormFooter';
 import { validateProduct } from '../../utils/validators';
 
-function ProductForm({ initialData = {}, onSubmit, onCancel, isEditing = false }) {
+const ProductForm = forwardRef(({ 
+  initialData = {}, 
+  onSubmit, 
+  onCancel, 
+  externalValidationErrors = {},
+  isEditing = false 
+}, ref) => {
   const [formData, setFormData] = useState({
     nombre: '',
     descripcion: '',
@@ -29,11 +35,18 @@ function ProductForm({ initialData = {}, onSubmit, onCancel, isEditing = false }
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Expose formData to parent via ref (with dependencies to prevent infinite loop)
+  useImperativeHandle(ref, () => ({
+    getFormData: () => formData,
+    hasUnsavedChanges: () => formData.imagenes?.length > 0,
+  }), [formData]);
+
+  // Set external validation errors (only when they change)
   useEffect(() => {
-    if (initialData) {
-      setFormData((prev) => ({ ...prev, ...initialData }));
+    if (Object.keys(externalValidationErrors).length > 0) {
+      setErrors(externalValidationErrors);
     }
-  }, [initialData]);
+  }, [externalValidationErrors]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -153,6 +166,8 @@ function ProductForm({ initialData = {}, onSubmit, onCancel, isEditing = false }
       />
     </form>
   );
-}
+});
+
+ProductForm.displayName = 'ProductForm';
 
 export default ProductForm;
