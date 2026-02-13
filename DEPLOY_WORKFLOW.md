@@ -37,14 +37,16 @@ El script automáticamente:
 # Navegar al directorio del proyecto
 cd C:\Users\tomas\OneDrive\Documentos\cerrosneakers23
 
-# Construir backend
+# Construir backend (No requiere variables de entorno en el build)
 docker build -t tuusuario/cerrosneakers23-backend:latest ./backend
 
-# Construir frontend
-docker build -t tuusuario/cerrosneakers23-frontend:latest ./frontend
+# Construir frontend (REQUIERE la URL de la API para compilarse)
+docker build --build-arg VITE_API_URL="https://cerrosneakers23.com.ar" -t tuusuario/cerrosneakers23-frontend:latest ./frontend
 ```
 
-**⚠️ Importante**: Reemplaza `tuusuario` con tu usuario real de Docker Hub.
+**⚠️ Importante**: 
+- Reemplaza `tuusuario` con tu usuario real de Docker Hub.
+- La variable `VITE_API_URL` debe pasarse **en el build** del frontend porque es inyectada por Vite durante la compilación. No funcionará si se pasa solo en el `docker-compose.yml`.
 
 #### 2️⃣ Login en Docker Hub
 
@@ -85,7 +87,7 @@ mkdir deploy-temp
 copy docker-compose.prod.yml deploy-temp\
 
 # Copiar al servidor (desde PowerShell o CMD)
-scp -i C:\Users\tomas\Downloads\cerrosneakers.pem docker-compose.prod.yml ubuntu@ec2-100-51-224-203.compute-1.amazonaws.com
+scp -i C:\Users\tomas\Downloads\cerrosneakers.pem docker-compose.prod.yml ubuntu@ec2-100-51-224-203.compute-1.amazonaws.com:
 
 # (OPCIONAL) Solo si tienes datos existentes que quieres migrar:
 scp -i tu-clave.pem backend\catalog.db ubuntu@[IP-AWS]:~/ 2>nul
